@@ -19,13 +19,16 @@ $smarty->setConfigDir('../smarty/configs');
 //get the current action
 $_action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'home';
 
-$smarty->assign('action', $_action);
+//Prepare the menuEntries and assign to template
+$smarty->assign('menuEntries', array('home','register'));
 
 switch($_action) {
     case 'home':
+        $smarty->assign('activeMenu', 'home');
         $smarty->display('home.tpl');
         break;
     case 'register':
+        $smarty->assign('activeMenu', 'register');
         $smarty->display('register.tpl');
         break;
     case 'pwgenerator':
@@ -35,7 +38,8 @@ switch($_action) {
         $smarty->display('accounts.tpl');
         break;
     default:
-       $smarty->display('home.tpl');
+        $smarty->assign('activeMenu', 'home');
+        $smarty->display('home.tpl');
         break;  
 }
 

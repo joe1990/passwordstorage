@@ -10,16 +10,16 @@
         <link href="../smarty/templates/styles/fonts.css" rel="stylesheet" type="text/css" media="all" />
     </head>
     <body>
-        <div id="logo" class="container">
-            <h1><span class="icon icon-lock icon-size"></span> Password <span>Storage</span></h1>
+        <div id="header" class="container">
+            <div id="logo">
+                <h1><span class="icon icon-lock icon-size"></span> Password <span>Storage</span></h1>
+            </div>
+            <div id="login">
+                {include file="login.tpl"}
+            </div>
         </div>
         <div id="wrapper" class="container">
-            <div id="menu" class="container">
-                <ul>
-                    <li class="current_page_item"><a href="#" accesskey="1" title="">Home</a></li>
-                    <li><a href="#" accesskey="1" title="">Register</a></li>
-                </ul>
-            </div>
+            {include file="menu.tpl" activeMenu=$activeMenu menuEntries=$menuEntries}
             <div id="page">
                 {block name=body}{/block}
             </div>

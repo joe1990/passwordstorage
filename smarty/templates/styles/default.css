@@ -26,6 +26,7 @@
 	{
 		margin-top: 0;
 	}
+        
 	
 	ol, ul
 	{
@@ -57,6 +58,19 @@
 		margin: 0px auto;
 		width: 1200px;
 	}
+        
+        dt {
+            float: left;
+            clear: both;
+            text-align: left;
+            width: 180px;
+            margin-bottom: 0.7em;
+        }
+        
+        dd {
+            text-align: left;
+            margin-bottom: 0.7em;
+        }
 	
 /*********************************************************************************/
 /* Image Style                                                                   */
@@ -107,24 +121,25 @@
 	.button
 	{
 		display: inline-block;
-		margin-top: 2em;
+		margin-top: 0.5em;
 		background: #00A4D9;
 		border-radius: 5px;
-		line-height: 4em;
-		padding: 0 3em;
+		line-height: 2em;
+		padding: 0 1em;
 		-webkit-transition: all .25s ease-in-out;
 		-moz-transition: all .25s ease-in-out;
 		-ms-transition: all .25s ease-in-out;
 		-o-transition: all .25s ease-in-out;
 		transition: all .25s ease-in-out;
-		letter-spacing: 0.25em;
+		letter-spacing: 1px;
 		text-decoration: none;
 		text-transform: uppercase;
 		outline: 0;
 		white-space: nowrap;
-		font-weight: 900;
+		font-weight: 700;
 		font-size: 1em !important;
 		color: #fff !important;
+                float: right;
 	}
 
 		.button:hover
@@ -160,22 +175,23 @@
 
 
 /*********************************************************************************/
-/* Logo                                                                          */
+/* Header                                                                          */
 /*********************************************************************************/
 
-	#logo
+	#header
 	{
+                height: 6em;
 		margin: 4em auto 4em auto;
 		text-transform: uppercase;
 	}
 	
-	#logo h1
+	#header h1
 	{
 		font-size: 2.2em;
 		color: #292929;
 	}
 	
-	#logo h1 a
+	#header h1 a
 	{
 		margin-left: 0.50em;
 		text-decoration: none;
@@ -183,19 +199,19 @@
 		color: #292929;
 	}
 	
-	#logo span
+	#header span
 	{
 		color: #01A9DC;
 	}
 
-	#logo .icon-size
+	#header .icon-size
 	{
 		padding-top: 0.20em;
 		font-size: 2em !important;
 		color: #01A9DC;
 	}
 	
-	#logo p
+	#header p
 	{
 		margin: 0;
 		padding: 0 0 0 5em;
@@ -204,12 +220,43 @@
 		color: #828282;
 	}
 
-	#logo p a
+	#header p a
 	{
 		text-decoration: none;
 		color: #828282;
 	}
+        
+        #header #logo 
+        {
+                width: 500px;
+                float: left;
+        }
+        
+        #header #login 
+        {
+                text-transform: capitalize;
+                width: 302px;
+                float: right;
+        }
+        
+        #header #loginform
+        {
+                margin-top: 2em;
+                width: 302px;
+        }
+        
+        #header dt 
+        {           
+            width: 100px;
+        }
 
+        #header .button
+	{
+            margin-top: 0em;
+            line-height: 1.5em;
+            font-weight: 600;
+            font-size: 0.8em !important;
+        }
 
 /*********************************************************************************/
 /* Menu                                                                          */
@@ -273,7 +320,10 @@
 	
 	#page .title
 	{
-		padding: 3em 0em;
+		padding-left: 0em;
+                padding-right: 0em;
+                padding-top: 2em;
+                padding-bottom: 1em;
 		letter-spacing: 0.10em;
 		text-transform: uppercase;
 	}
@@ -290,18 +340,10 @@
 		font-size: 0.90em;
 		color: #858585;
 	}
-
-	#page #box1
-	{
-		float: left;
-		width: 500px;
-	}
-
-	#page #box2
-	{
-		float: right;
-		width: 500px;
-	}
+        
+        #page #form_register {
+                width: 443px;
+        }
 	
 	#page a
 	{
