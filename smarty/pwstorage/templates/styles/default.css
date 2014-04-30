@@ -59,6 +59,10 @@
 		width: 1200px;
 	}
         
+        dl {
+            margin-top: 5px;
+        }
+        
         dt {
             float: left;
             clear: both;
@@ -245,6 +249,18 @@
                 width: 302px;
         }
         
+        #header #logoutform
+        {
+                margin-top: 2em;
+                text-transform: none;
+                text-align: right;
+        }
+        
+        #header #logoutform #message
+        {
+                margin-bottom: 5px;
+        }
+        
         #header dt 
         {           
             width: 100px;
@@ -341,7 +357,7 @@
 		color: #858585;
 	}
         
-        #page #form_register {
+        #page #registerform {
                 width: 443px;
         }
 	
@@ -370,7 +386,12 @@
 		color: #747474;
 	}
 
-
-
+/*********************************************************************************/
+/* Error                                                                     */
+/*********************************************************************************/
+        #error
+        {
+            background-color: #FFDDDD;
+        }
 
 

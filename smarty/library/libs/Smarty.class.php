@@ -835,11 +835,11 @@ class Smarty extends Smarty_Internal_TemplateBase
     {
         $this->template_dir = array();
         foreach ((array) $template_dir as $k => $v) {
-            $this->template_dir[$k] = str_replace(array('//','\\\\'), DS, rtrim($v, '/\\')) . DS;
+            $this->template_dir[$k] = str_replace(array('//','\\\\'), DS, rtrim($v, '/\\')) . DS;            
         }
+         
 
         $this->joined_template_dir = join(DIRECTORY_SEPARATOR, $this->template_dir);
-
         return $this;
     }
 

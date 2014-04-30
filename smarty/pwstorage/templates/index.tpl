@@ -6,8 +6,8 @@
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800|Open+Sans+Condensed:300,700" rel="stylesheet" />
-        <link href="../smarty/templates/styles/default.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="../smarty/templates/styles/fonts.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="../../smarty/pwstorage/templates/styles/default.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="../../smarty/pwstorage/templates/styles/fonts.css" rel="stylesheet" type="text/css" media="all" />
     </head>
     <body>
         <div id="header" class="container">

@@ -1,8 +1,8 @@
 {extends file="index.tpl"}
-{block name=title}PASSWORD STORAGE - Register{/block}
+{block name=title}PASSWORD STORAGE - Profile{/block}
 {block name=body}
     <div class="title">
-        <h2>Register</h2>
+        <h2>Edit Profile</h2>
     </div>
     <div id="form_register">
         <dl>
@@ -10,10 +10,10 @@
                 Username
             </dt>
             <dd>
-                 <input type="text" name="username" size="40" maxlength="50"/>
+                 <input type="text" name="username" size="40" maxlength="50" value="{$user->getUsername()}" disabled/>
             </dd>
             <dt>
-               Password
+               New Password
             </dt>
             <dd>
                 <input type="password" name="password" size="40" maxlength="40"/>
@@ -25,6 +25,6 @@
                 <input type="password" name="password-again" size="40" maxlength="40"/>
             </dd>
         </dl>
-        <a href="#" class="button">Register</a>
+        <a href="#" class="button">Save</a>
     </div>
 {/block}
