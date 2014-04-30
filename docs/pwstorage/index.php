@@ -27,7 +27,14 @@ if (isset($_POST['login'])) {
     $pwStorageController->registerUser($user, $_action);
 } elseif (isset($_POST['saveProfile'])) {
     $pwStorageController->changeUserPassword($_POST['password'], $_POST['passwordagain'], $_action);
-} elseif (isset($_POST['logout'])) {
+} elseif (isset($_POST['addAccount'])) {
+    $account = new Account();
+    $account->setTitle($_POST['title']);
+    $account->setWebsite($_POST['website']);
+    $account->setUsername($_POST['username']);
+    $account->setPassword($_POST['password']);
+    $pwStorageController->addAccount($account);
+}elseif (isset($_POST['logout'])) {
     $pwStorageController->logoutUser();
 }else {
     switch($_action) {
@@ -45,6 +52,17 @@ if (isset($_POST['login'])) {
             break;
         case 'accounts':
             $pwStorageController->displayAccounts();
+            break;
+        case 'addAccount':
+            $pwStorageController->displayAddAccount();
+            break;
+        case 'showAccount':
+            $item = isset($_REQUEST['item']) ? $_REQUEST['item'] : '';
+            $pwStorageController->displayShowAccount($item);
+            break;
+        case 'editAccount':
+            $item = isset($_REQUEST['item']) ? $_REQUEST['item'] : '';
+            $pwStorageController->displayEditAccount($item);
             break;
         case 'profile':
             $pwStorageController->displayProfile();

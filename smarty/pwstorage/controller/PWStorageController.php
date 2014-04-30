@@ -3,11 +3,13 @@ require(PWSTORAGE_DIR . 'persistence/PersistenceManager.php');
 require(PWSTORAGE_DIR . 'model/Fault.php');
 require(PWSTORAGE_DIR . 'validator/RegisterValidator.php');
 require(PWSTORAGE_DIR . 'validator/ProfileValidator.php');
+require(PWSTORAGE_DIR . 'validator/AddAccountValidator.php');
+require(PWSTORAGE_DIR . 'model/Account.php');
 
 class PWStorageController {
     
     private $template = null;
-    private $persistenceManager = null; 
+    private $persistenceManager = null;
     
     public function __construct() {
         $this->template = new PWStorageSetup();
@@ -74,6 +76,12 @@ class PWStorageController {
         }
     }
     
+    public function displayProfile() {
+        $this->template->assign('activeMenu', null);
+        $this->template->assign('user', $this->getLoggedInUser());
+        $this->template->display('profile.tpl');
+    }
+    
     public function changeUserPassword($password, $passwordAgain, $displayAction) {
         $profileValidator = new ProfileValidator();
         $faults = $profileValidator->validate($password, $passwordAgain);
@@ -99,15 +107,41 @@ class PWStorageController {
     }
     
     public function displayAccounts() {
+        $accounts = $this->persistenceManager->getAccounts($this->getLoggedInUser());
+        $this->template->assign('accounts', $accounts);
         $this->template->assign('activeMenu', 'accounts');
         $this->template->display('accounts.tpl');
     }
     
+    public function displayAddAccount(Account $account = null) {
+        $this->template->assign('activeMenu', 'accounts');
+        $this->template->assign('account', $account);
+        $this->template->display('addAccount.tpl');
+    }
+    
+    public function addAccount(Account $account) {
+        $addAccountValidator = new AddAccountValidator();
+        $faults = $addAccountValidator->validate($account);
+        if (!$faults) {
+            
+        } else {
+            $this->template->assign('faults', $faults);
+            $this->displayAddAccount($account);
+        }
+    }
 
-    public function displayProfile() {
-        $this->template->assign('activeMenu', null);
-        $this->template->assign('user', $this->getLoggedInUser());
-        $this->template->display('profile.tpl');
+    public function displayShowAccount($accountId) {
+        $account = $this->persistenceManager->getAccount($accountId);
+        $this->template->assign('account', $account);
+        $this->template->assign('activeMenu', 'accounts');
+        $this->template->display('showAccount.tpl');
+    }
+    
+    public function displayEditAccount($accountId) {
+        $account = $this->persistenceManager->getAccount($accountId);
+        $this->template->assign('account', $account);
+        $this->template->assign('activeMenu', 'accounts');
+        $this->template->display('editAccount.tpl');
     }
     
     private function displayActive($displayAction) {

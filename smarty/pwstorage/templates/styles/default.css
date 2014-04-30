@@ -45,7 +45,7 @@
 	
 	a
 	{
-		color: #0000FF;
+		color: #01A9DC;
 	}
 	
 	a:hover
@@ -72,9 +72,21 @@
         }
         
         dd {
-            text-align: right;
             margin-bottom: 0.7em;
         }
+        
+        table {
+            text-align: left;
+        }
+        
+
+        td {
+            border-bottom: 1px solid #D5D5D5;
+            padding-left: 4px;
+            padding-right: 20px;
+        }
+        
+        
 	
 /*********************************************************************************/
 /* Image Style                                                                   */
@@ -122,14 +134,40 @@
 /* Button Style                                                                  */
 /*********************************************************************************/
 
-	.button
+	.linkbutton
+	{
+		display: inline-block;
+		margin-top: 0.5em;
+                margin-left: 0.3em;
+		background: #00A4D9;
+		border-radius: 5px;
+		line-height: 1.55em;
+		padding: 0em 1em;
+		-webkit-transition: all .25s ease-in-out;
+		-moz-transition: all .25s ease-in-out;
+		-ms-transition: all .25s ease-in-out;
+		-o-transition: all .25s ease-in-out;
+		transition: all .25s ease-in-out;
+		letter-spacing: 1px;
+		text-decoration: none;
+		text-transform: uppercase;
+		outline: 0;
+		white-space: nowrap;
+		font-weight: 600;
+		font-size: 1em !important;
+		color: #fff !important;
+                float: right;
+	}
+        
+        .button
 	{
 		display: inline-block;
 		margin-top: 0.5em;
 		background: #00A4D9;
 		border-radius: 5px;
+                border-width: 0px;
 		line-height: 2em;
-		padding: 0 1em;
+		padding: 0.1em 1em;
 		-webkit-transition: all .25s ease-in-out;
 		-moz-transition: all .25s ease-in-out;
 		-ms-transition: all .25s ease-in-out;
@@ -360,6 +398,14 @@
         #page #registerform {
                 width: 443px;
         }
+        
+        #page #registerform dd {
+                text-align: right;
+        }
+        
+        #page #accountform {
+                width: 443px;
+        }
 	
 	#page a
 	{
@@ -369,6 +415,17 @@
         #page .fieldnote {
                 font-size: 9pt;
         }
+        
+        #page .introtext {
+                padding-top: 1em;
+                padding-bottom: 0.8em;
+        }
+        
+        #page .backlink {
+                clear: both;
+                margin-top: 2em;
+        }
+ 
 
 /*********************************************************************************/
 /* Copyright                                                                     */
@@ -406,4 +463,28 @@
             background-color: #DDFFDD;
         }
 
-
+/*********************************************************************************/
+/* Icon Style                                                                     */
+/*********************************************************************************/        
+        .detailIcon {
+            background: url("../images/icon-detail.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+            font-size: 24px;
+            padding-left: 32px;
+        }
+        
+        .editIcon {
+            background: url("../images/icon-edit.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+            font-size: 24px;
+            padding-left: 32px;
+        }
+        
+        .deleteIcon {
+            background: url("../images/icon-delete.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+            font-size: 24px;
+            padding-left: 24px;
+        }
+        
+        .addIcon {
+            background: url("../images/icon-add.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+            padding-left: 26px;
+        }

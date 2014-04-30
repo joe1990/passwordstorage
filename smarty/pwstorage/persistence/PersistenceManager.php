@@ -63,5 +63,38 @@ class PersistenceManager {
             //TODO
         }
     }
+    
+    public function getAccounts(User $user) {
+        try {
+            $sql = 'SELECT id,title,website
+                        FROM accounts
+                        WHERE userid = :userid';
+            $statement = DB::getInstance()->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+            $statement->execute(array(':userid' => $user->getId()));
+            $result = $statement->fetchAll(PDO::FETCH_CLASS, "Account");
+            return $result;
+        } catch (PDOException $e) {
+            //TODO
+        }
+    }
+    
+    public function getAccount($id) {
+        try {
+            $sql = 'SELECT id,title,website,username,password,userid
+                        FROM accounts
+                        WHERE id = :id';
+            
+            $statement = DB::getInstance()->prepare($sql);
+            $statement->setFetchMode( PDO::FETCH_CLASS, 'Account');
+            $statement->execute(array(':id' => $id));
+            $result = $statement->fetch(PDO::FETCH_CLASS);
+            if (!$result) {
+                $result = null;
+            }
+            return $result;
+        } catch (PDOException $e) {
+            //TODO
+        }
+    }
 }
 ?>
