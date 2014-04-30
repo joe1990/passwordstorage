@@ -2,6 +2,7 @@
 require(PWSTORAGE_DIR . 'persistence/PersistenceManager.php');
 require(PWSTORAGE_DIR . 'model/Fault.php');
 require(PWSTORAGE_DIR . 'validator/RegisterValidator.php');
+require(PWSTORAGE_DIR . 'validator/ProfileValidator.php');
 
 class PWStorageController {
     
@@ -30,8 +31,9 @@ class PWStorageController {
         $this->template->display('home.tpl');
     }
     
-    public function displayRegister() {
+    public function displayRegister(User $user = null) {
         $this->template->assign('activeMenu', 'register');
+        $this->template->assign('user', $user);
         $this->template->display('register.tpl');
     }
     
@@ -41,7 +43,7 @@ class PWStorageController {
         if ($userId > 0) {
             $user->setId($userId);
             $this->setLoggedInUser($user);
-            $this->redirect('home');
+            $this->redirect('accounts');
         } else {
             $fault = new Fault('Logindata not correct.');
             $faults[] = $fault->toArray();
@@ -68,8 +70,22 @@ class PWStorageController {
             $this->redirect('registerConfirmation');
         } else {
             $this->template->assign('faults', $faults);
-            $this->displayActive($displayAction);
+            $this->displayRegister($user);
         }
+    }
+    
+    public function changeUserPassword($password, $passwordAgain, $displayAction) {
+        $profileValidator = new ProfileValidator();
+        $faults = $profileValidator->validate($password, $passwordAgain);
+        if (!$faults) {
+            $loggedInUser = $this->getLoggedInUser();
+            $loggedInUser->setPassword(hash('sha256', $password));
+            $this->persistenceManager->updateUserPassword($loggedInUser);
+            $this->template->assign('successMessage', 'Save successfully');
+        } else {
+            $this->template->assign('faults', $faults);
+        }
+        $this->displayProfile();
     }
     
     public function displayRegisterConfirmation() {
@@ -87,6 +103,7 @@ class PWStorageController {
         $this->template->display('accounts.tpl');
     }
     
+
     public function displayProfile() {
         $this->template->assign('activeMenu', null);
         $this->template->assign('user', $this->getLoggedInUser());
@@ -114,6 +131,10 @@ class PWStorageController {
         $_SESSION['user'] = $user;
     }
     
+    /**
+     * 
+     * @return User
+     */
     private function getLoggedInUser() {
         if(!isset($_SESSION)) {
             session_start();    

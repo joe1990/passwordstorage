@@ -6,7 +6,7 @@ class RegisterValidator {
         $faults = null;
         $username = $user->getUsername();
         $password = $user->getPassword();
-        $passwordagain = $user->getPasswordagain();
+        $passwordAgain = $user->getPasswordagain();
         $persistenceManager = new PersistenceManager();
         
         if (!$username) {
@@ -34,10 +34,10 @@ class RegisterValidator {
             $faults[] = $fault->toArray();
         }
         
-        if (!$passwordagain) {
+        if (!$passwordAgain) {
             $fault = new Fault('Must not be empty.', 'Re-enter Password ');
             $faults[] = $fault->toArray();
-        } elseif ($passwordagain != $password) {
+        } elseif ($passwordAgain != $password) {
             $fault = new Fault('Muss match with the password.', 'Re-enter Password ');
             $faults[] = $fault->toArray();
         }

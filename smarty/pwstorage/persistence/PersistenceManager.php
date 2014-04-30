@@ -43,10 +43,22 @@ class PersistenceManager {
     
     public function addUser(User $user) {
         try {
-            $sql = "INSERT INTO 
-                    users (username,password) VALUES (:username,:password)";
+            $sql = 'INSERT INTO 
+                    users (username,password) VALUES (:username,:password)';
             $statement = DB::getInstance()->prepare($sql);
             $statement->execute(array(':username' => $user->getUsername(), ':password' => $user->getPassword()));
+        } catch (PDOException $e) {
+            //TODO
+        }
+    }
+    
+    public function updateUserPassword(User $user) {
+        try {
+            $sql = 'UPDATE 
+                    users SET password=:password
+                    WHERE id=:id';
+            $statement = DB::getInstance()->prepare($sql);
+            $statement->execute(array(':password' => $user->getPassword(), ':id' => $user->getId()));
         } catch (PDOException $e) {
             //TODO
         }

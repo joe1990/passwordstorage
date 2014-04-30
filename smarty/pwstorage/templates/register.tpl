@@ -12,19 +12,23 @@
                     Username
                 </dt>
                 <dd>
-                     <input type="text" name="username" size="40" maxlength="50"/> mind. 5 Zeichen
+                    {if isset($user)}
+                        <input type="text" name="username" size="40" maxlength="50" value="{$user->getUsername()}"/> <span class="fieldnote">mind. 5 Zeichen</span>
+                    {else}
+                        <input type="text" name="username" size="40" maxlength="50" /> <span class="fieldnote">mind. 5 Zeichen</span>
+                    {/if}
                 </dd>
                 <dt>
                    Password
                 </dt>
                 <dd>
-                    <input type="password" name="password" size="40" maxlength="40"/> mind. 5 Zeichen
+                    <input type="password" name="password" size="40" maxlength="40"/> <span class="fieldnote">mind. 5 Zeichen</span>
                 </dd>
                 <dt>
                    Re-enter Password
                 </dt>
                 <dd>
-                    <input type="password" name="passwordagain" size="40" maxlength="40"/> mind. 5 Zeichen
+                    <input type="password" name="passwordagain" size="40" maxlength="40"/> <span class="fieldnote">mind. 5 Zeichen</span>
                 </dd>
             </dl>
             <input type="submit" class="button" name="register" value="register"/>

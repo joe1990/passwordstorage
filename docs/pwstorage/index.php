@@ -21,10 +21,12 @@ $_action = isset($_REQUEST['action']) ? $_REQUEST['action'] : 'home';
 
 if (isset($_POST['login'])) {
     $user = new User($_POST['username'], $_POST['password']);
-    $pwStorageController->loginUser($user, isset($_GET['action']) ? $_GET['action'] : 'home');
+    $pwStorageController->loginUser($user, $_action);
 } elseif (isset($_POST['register'])) {
     $user = new User($_POST['username'], $_POST['password'], $_POST['passwordagain']);
-    $pwStorageController->registerUser($user, isset($_GET['action']) ? $_GET['action'] : 'home');
+    $pwStorageController->registerUser($user, $_action);
+} elseif (isset($_POST['saveProfile'])) {
+    $pwStorageController->changeUserPassword($_POST['password'], $_POST['passwordagain'], $_action);
 } elseif (isset($_POST['logout'])) {
     $pwStorageController->logoutUser();
 }else {
