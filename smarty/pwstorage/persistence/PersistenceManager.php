@@ -96,5 +96,16 @@ class PersistenceManager {
             //TODO
         }
     }
+    
+    public function addAccount(Account $account) {
+        try {
+            $sql = 'INSERT INTO 
+                    accounts (title,website,username,password,userid) VALUES (:title,:website,:username,:password,:userid)';
+            $statement = DB::getInstance()->prepare($sql);
+            $statement->execute(array(':title' => $account->getTitle(), ':website' => $account->getWebsite(), ':username' => $account->getUsername(), ':password' => $account->getPassword(), ':userid' => $account->getUserId()));
+        } catch (PDOException $e) {
+            //TODO
+        }
+    }
 }
 ?>

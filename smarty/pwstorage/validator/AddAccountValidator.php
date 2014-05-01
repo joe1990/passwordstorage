@@ -33,7 +33,7 @@ class AddAccountValidator {
         if (!$username) {
             $fault = new Fault('Must not be empty.', 'Username');
             $faults[] = $fault->toArray();
-        } elseif (strlen($username) > 100) {
+        } elseif (strlen($username) > 50) {
             $fault = new Fault('May be a maximum of 50 characters.', 'Username');
             $faults[] = $fault->toArray();
         }

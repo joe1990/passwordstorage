@@ -47,5 +47,9 @@ class Account {
     public function getUserId() {
         return $this->userId;
     }
+    
+    public function setUserId($userId) {
+        $this->userId = $userId;
+    }
 }
 ?>

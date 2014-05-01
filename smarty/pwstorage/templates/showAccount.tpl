@@ -16,7 +16,7 @@
                 <b>Website:</b>
             </dt>
             <dd>
-                {$account->getWebsite()}
+                <a href="{$account->getWebsite()}" target="_blank">{$account->getWebsite()}</a>
             </dd>
             <dt>
                 <b>Username:</b>

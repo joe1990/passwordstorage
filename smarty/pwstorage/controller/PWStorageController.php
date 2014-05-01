@@ -5,6 +5,7 @@ require(PWSTORAGE_DIR . 'validator/RegisterValidator.php');
 require(PWSTORAGE_DIR . 'validator/ProfileValidator.php');
 require(PWSTORAGE_DIR . 'validator/AddAccountValidator.php');
 require(PWSTORAGE_DIR . 'model/Account.php');
+require(PWSTORAGE_DIR . 'helper/PasswordEncrypter.php');
 
 class PWStorageController {
     
@@ -40,10 +41,12 @@ class PWStorageController {
     }
     
     public function loginUser(User $user, $displayAction) {
+        $plainPassword = $user->getPassword();
         $user->setPassword(hash('sha256', $user->getPassword()));
         $userId = $this->persistenceManager->getUserId($user);
         if ($userId > 0) {
             $user->setId($userId);
+            $user->setPassword($plainPassword);
             $this->setLoggedInUser($user);
             $this->redirect('accounts');
         } else {
@@ -86,6 +89,7 @@ class PWStorageController {
         $profileValidator = new ProfileValidator();
         $faults = $profileValidator->validate($password, $passwordAgain);
         if (!$faults) {
+            //TODO: Change all Passwords when changing user password
             $loggedInUser = $this->getLoggedInUser();
             $loggedInUser->setPassword(hash('sha256', $password));
             $this->persistenceManager->updateUserPassword($loggedInUser);
@@ -123,7 +127,14 @@ class PWStorageController {
         $addAccountValidator = new AddAccountValidator();
         $faults = $addAccountValidator->validate($account);
         if (!$faults) {
+            $account->setUserId($this->getLoggedInUser()->getId());
+            //Encrypt Password
+            $passwordEncrypter = new PasswordEncrypter();
+            $encryptedPassword = $passwordEncrypter->encrypt($account->getPassword(), $this->getLoggedInUser()->getPassword());
+            $account->setPassword($encryptedPassword);
             
+            $this->persistenceManager->addAccount($account);
+            $this->redirect('accounts');
         } else {
             $this->template->assign('faults', $faults);
             $this->displayAddAccount($account);
@@ -132,6 +143,10 @@ class PWStorageController {
 
     public function displayShowAccount($accountId) {
         $account = $this->persistenceManager->getAccount($accountId);
+        //Decrypt Password
+        $passwordEncrypter = new PasswordEncrypter();
+        $account->setPassword($passwordEncrypter->decrypt($account->getPassword(), $this->getLoggedInUser()->getPassword()));
+        
         $this->template->assign('account', $account);
         $this->template->assign('activeMenu', 'accounts');
         $this->template->display('showAccount.tpl');
