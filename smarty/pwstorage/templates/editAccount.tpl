@@ -36,6 +36,7 @@
                 </dl>
                 <a class="linkbutton" href="index.php?action=accounts">cancel</a>
                 <input type="submit" class="button" name="editAccount" value="save"/>
+                <input type="hidden" name="id" value="{$account->getId()}">
             </form>
         </div>   
     {/if}

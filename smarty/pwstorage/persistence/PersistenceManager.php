@@ -66,7 +66,7 @@ class PersistenceManager {
     
     public function getAccounts(User $user) {
         try {
-            $sql = 'SELECT id,title,website
+            $sql = 'SELECT id,title,website,username,password
                         FROM accounts
                         WHERE userid = :userid';
             $statement = DB::getInstance()->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
@@ -78,7 +78,7 @@ class PersistenceManager {
         }
     }
     
-    public function getAccount($id) {
+    public function getAccount($accountId) {
         try {
             $sql = 'SELECT id,title,website,username,password,userid
                         FROM accounts
@@ -86,7 +86,7 @@ class PersistenceManager {
             
             $statement = DB::getInstance()->prepare($sql);
             $statement->setFetchMode( PDO::FETCH_CLASS, 'Account');
-            $statement->execute(array(':id' => $id));
+            $statement->execute(array(':id' => $accountId));
             $result = $statement->fetch(PDO::FETCH_CLASS);
             if (!$result) {
                 $result = null;
@@ -103,6 +103,40 @@ class PersistenceManager {
                     accounts (title,website,username,password,userid) VALUES (:title,:website,:username,:password,:userid)';
             $statement = DB::getInstance()->prepare($sql);
             $statement->execute(array(':title' => $account->getTitle(), ':website' => $account->getWebsite(), ':username' => $account->getUsername(), ':password' => $account->getPassword(), ':userid' => $account->getUserId()));
+        } catch (PDOException $e) {
+            //TODO
+        }
+    }
+    
+    public function updateAccountPassword(Account $account) {
+        try {
+            $sql = 'UPDATE 
+                    accounts SET password=:password
+                    WHERE id=:id';
+            $statement = DB::getInstance()->prepare($sql);
+            $statement->execute(array(':password' => $account->getPassword(), ':id' => $account->getId()));
+        } catch (PDOException $e) {
+            //TODO
+        }
+    }
+    
+    public function updateAccount(Account $account) {
+        try {
+            $sql = 'UPDATE 
+                    accounts SET title=:title, website=:website, username=:username, password=:password
+                    WHERE id=:id';
+            $statement = DB::getInstance()->prepare($sql);
+            $statement->execute(array(':title' => $account->getTitle(),':website' => $account->getWebsite(),':username' => $account->getUsername(),':password' => $account->getPassword(),':id' => $account->getId()));
+        } catch (PDOException $e) {
+            //TODO
+        }
+    }
+    
+    public function deleteAccount($id) {
+        try {
+            $sql = "DELETE FROM accounts WHERE id =  :id";
+            $statement = DB::getInstance()->prepare($sql);
+            $statement->execute(array(':id' => $id));
         } catch (PDOException $e) {
             //TODO
         }
