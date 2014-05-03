@@ -1,3 +1,9 @@
+<!--
+Template for the "Edit Profile" form.
+
+Author: Joel Holzer <joe_ehcb@hotmail.com>
+Version: 1.0
+-->
 {extends file="index.tpl"}
 {block name=title}PASSWORD STORAGE - Profile{/block}
 {block name=body}
@@ -6,8 +12,8 @@
     </div>
     <div id="registerform">
         <form method="post">
-            {include file="errors.tpl"}
-            {include file="success.tpl"}
+            {include file="partials/errors.tpl"}
+            {include file="partials/success.tpl"}
             <dl>
                 <dt>
                     Username

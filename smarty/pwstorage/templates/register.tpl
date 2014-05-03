@@ -1,3 +1,9 @@
+<!--
+Template for the "(User) Register" form.
+
+Author: Joel Holzer <joe_ehcb@hotmail.com>
+Version: 1.0
+-->
 {extends file="index.tpl"}
 {block name=title}PASSWORD STORAGE - Register{/block}
 {block name=body}
@@ -6,7 +12,7 @@
     </div>
     <div id="registerform">
         <form method="post">
-            {include file="errors.tpl"}
+            {include file="partials/errors.tpl"}
             <dl>
                 <dt>
                     Username

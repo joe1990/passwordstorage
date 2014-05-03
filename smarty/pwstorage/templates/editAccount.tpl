@@ -1,3 +1,9 @@
+<!--
+Template for the "Edit Account" form.
+
+Author: Joel Holzer <joe_ehcb@hotmail.com>
+Version: 1.0
+-->
 {extends file="index.tpl"}
 {block name=title}PASSWORD STORAGE - Edit Account{/block}
 {block name=body}
@@ -7,7 +13,7 @@
     {if isset($account)}
         <div id="accountform">
             <form method="post">
-                {include file="errors.tpl"}
+                {include file="partials/errors.tpl"}
                 <dl>
                     <dt>
                         Title
@@ -34,7 +40,7 @@
                         <input type="text" name="password" size="40" maxlength="40" value="{$account->getPassword()}"/>
                     </dd>
                 </dl>
-                <a class="linkbutton" href="index.php?action=accounts">cancel</a>
+                <a class="linkbutton" href="index.php?view=accounts">cancel</a>
                 <input type="submit" class="button" name="editAccount" value="save"/>
                 <input type="hidden" name="id" value="{$account->getId()}">
             </form>

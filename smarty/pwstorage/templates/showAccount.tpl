@@ -1,3 +1,9 @@
+<!--
+Template for the detail view of a specific account.
+
+Author: Joel Holzer <joe_ehcb@hotmail.com>
+Version: 1.0
+-->
 {extends file="index.tpl"}
 {block name=title}PASSWORD STORAGE - Account Detail{/block}
 {block name=body}
@@ -31,6 +37,6 @@
                 {$account->getPassword()}
             </dd>
         </dl>
-        <div class="backlink"><a href="index.php?action=accounts">< back</a></div>       
+        <div class="backlink"><a href="index.php?view=accounts">< back</a></div>       
     {/if}
 {/block}

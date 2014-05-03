@@ -1,3 +1,9 @@
+<!--
+Template for the "Add Account" form.
+
+Author: Joel Holzer <joe_ehcb@hotmail.com>
+Version: 1.0
+-->
 {extends file="index.tpl"}
 {block name=title}PASSWORD STORAGE - Add Account{/block}
 {block name=body}
@@ -6,7 +12,7 @@
     </div>
     <div id="accountform">
         <form method="post">
-            {include file="errors.tpl"}
+            {include file="partials/errors.tpl"}
             <dl>
                 <dt>
                     Title
@@ -50,7 +56,7 @@
                     {/if}
                 </dd>
             </dl>
-            <a class="linkbutton" href="index.php?action=accounts">cancel</a>
+            <a class="linkbutton" href="index.php?view=accounts">cancel</a>
             <input type="submit" class="button" name="addAccount" value="Add"/>
         </form>
     </div>

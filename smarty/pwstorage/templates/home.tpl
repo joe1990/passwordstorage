@@ -1,3 +1,9 @@
+<!--
+Template for the "Home" view
+
+Author: Joel Holzer <joe_ehcb@hotmail.com>
+Version: 1.0
+-->
 {extends file="index.tpl"}
 {block name=title}PASSWORD STORAGE - Home{/block}
 {block name=body}
