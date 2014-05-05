@@ -15,7 +15,7 @@ Version: 1.0
     </div>
     {include file="partials/success.tpl"}
     <table>
-    {foreach item=account from=$accounts}
+    {foreach item=account name=accounts from=$accounts}
         <tr>
             <td>
                 <a class="detailIcon" href="index.php?view=showAccount&item={$account->getId()}"> </a>
@@ -30,5 +30,8 @@ Version: 1.0
             </td>
         </tr>        
     {/foreach}
+    {if {$smarty.foreach.accounts.total} == 0}
+        You have no accounts. An account can be add by the "Add Account"-Link.
+    {/if}
     </table>
 {/block}

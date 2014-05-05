@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PasswordEncrypter. Include methods to encrypt and decrypt an account password with the user password.
+ * PasswordEncrypter. Include methods to encrypt and decrypt an account password with the user password. Use the mcrypt-library.
  * 
  * @author Joel Holzer <joe_ehcb@hotmail.com>
  * @version 1.0

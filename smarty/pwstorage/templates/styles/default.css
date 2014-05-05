@@ -324,6 +324,11 @@ td {
     text-align: right;
 }
 
+#page #pwgeneratorform {
+    width: 322px;
+}
+
+
 #page #accountform {
     width: 443px;
 }

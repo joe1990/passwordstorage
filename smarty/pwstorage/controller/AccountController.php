@@ -72,13 +72,19 @@ class AccountController extends BaseController{
      * @param int $accountId ID of the account which details will display.
      */
     public function displayShowAccount($accountId) {
-        $account = $this->accountRepository->getAccount($accountId);
-        //Decrypt Password
-        $account->setPassword($this->passwordEncrypter->decrypt($account->getPassword(), $this->getLoggedInUser()->getPassword()));
         
-        $this->template->assign('account', $account);
-        $this->template->assign('activeMenu', 'accounts');
-        $this->template->display('showAccount.tpl');
+        $account = $this->accountRepository->getAccount($accountId);
+        
+        if ($account != NULL && $account->getUserId() == $this->getLoggedInUser()->getId()) {
+            //Decrypt Password
+            $account->setPassword($this->passwordEncrypter->decrypt($account->getPassword(), $this->getLoggedInUser()->getPassword()));
+
+            $this->template->assign('account', $account);
+            $this->template->assign('activeMenu', 'accounts');
+            $this->template->display('showAccount.tpl');
+        } else {
+            throw new NotAuthorizedException();
+        }  
     }
     
     /**
@@ -89,10 +95,15 @@ class AccountController extends BaseController{
     public function displayEditAccount($accountId) {
         $account = $this->accountRepository->getAccount($accountId);
         
-        //Decrypt Password
-        $account->setPassword($this->passwordEncrypter->decrypt($account->getPassword(), $this->getLoggedInUser()->getPassword()));
+        if ($account != NULL && $account->getUserId() == $this->getLoggedInUser()->getId()) {
+            //Decrypt Password
+            $account->setPassword($this->passwordEncrypter->decrypt($account->getPassword(), $this->getLoggedInUser()->getPassword()));
         
-        $this->assignDisplayEditAccount($account);
+            $this->assignDisplayEditAccount($account);
+        } else {
+            throw new NotAuthorizedException();
+        }  
+        
     }
     
     /**
@@ -101,16 +112,20 @@ class AccountController extends BaseController{
      * 
      * @param Account $account Account to update. Account-object has updated attributes.
      */
-    public function editAccount(Account $account) {
+    public function updateAccount(Account $account) {
         $editAccountValidator = new AccountValidator();
         $faults = $editAccountValidator->validate($account);
         if (!$faults) {
-            $account->setUserId($this->getLoggedInUser()->getId());
-            //Encrypt Password
-            $encryptedPassword = $this->passwordEncrypter->encrypt($account->getPassword(), $this->getLoggedInUser()->getPassword());
-            $account->setPassword($encryptedPassword);
-            $this->accountRepository->updateAccount($account);
-            $this->redirectWithMessage('accounts', 'Account updated successfully');
+            if ($this->accountRepository->getAccountUserId($account->getId()) == $this->getLoggedInUser()->getId()) {
+                $account->setUserId($this->getLoggedInUser()->getId());
+                //Encrypt Password
+                $encryptedPassword = $this->passwordEncrypter->encrypt($account->getPassword(), $this->getLoggedInUser()->getPassword());
+                $account->setPassword($encryptedPassword);
+                $this->accountRepository->updateAccount($account);
+                $this->redirectWithMessage('accounts', 'Account updated successfully');
+            } else {
+                throw new NotAuthorizedException();
+            }
         } else {
             $this->template->assign('faults', $faults);
             $this->assignDisplayEditAccount($account);
@@ -134,8 +149,12 @@ class AccountController extends BaseController{
      * @param int $accountId ID of the account to delete.
      */
     public function deleteAccount($accountId) {
-        $this->accountRepository->deleteAccount($accountId);
-        $this->redirectWithMessage('accounts', 'Account deleted successfully');
+        if ($this->accountRepository->getAccountUserId($accountId) == $this->getLoggedInUser()->getId()) {
+            $this->accountRepository->deleteAccount($accountId);
+            $this->redirectWithMessage('accounts', 'Account deleted successfully');
+        } else {
+            throw new NotAuthorizedException();
+        }
     }
     
     /**
@@ -166,5 +185,6 @@ class AccountController extends BaseController{
             unset($_SESSION['successMessage']);
         }
     }
+    
 }
 ?>

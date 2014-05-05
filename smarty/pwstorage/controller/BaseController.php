@@ -44,9 +44,46 @@ class BaseController {
     /**
      * Displays the password generator site.
      */
-    public function displayPWGenerator() {
+    
+    /**
+     * Displays the password generator site.
+     * 
+     * @param Password $password Password to prefill out the password-generate-form (e.g. if validation errors occured or password was generated). Could be null (if password-generate-form should not be prefill out).
+     */
+    public function displayPWGenerator(Password $password = null) {
+        if ($password == null) {
+            $password = new Password(5,true,true,false);
+        }
+        
+        $this->template->assign('password', $password);
         $this->template->assign('activeMenu', 'pwgenerator');
         $this->template->display('pwgenerator.tpl');
+    }
+    
+    /**
+     * Generate a password with the options the user choose (attributes of password-object) and display the generated password on the site.
+     * 
+     * @param Password $password Password-Object with the options for generate a password.
+     */
+    public function generatePassword(Password $password) {
+        //TODO: mehrere Passwörter + Valdierung + Schöne Anzeige
+        
+        $chars = '';
+        if ($password->hasCharacters()) {
+            $chars .= 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        }
+        if ($password->hasDigits()) {
+            $chars .= '0123456789';
+        }
+        if ($password->hasSpecialCharacters()) {
+            $chars .= '!@#$%^&*()_-=+;:,.?';
+        }
+        
+        $generatedPassword = substr( str_shuffle( $chars ), 0, $password->getLength() );
+        
+        $password->setPassword($generatedPassword);
+        $this->template->assign('generatedPassword', $generatedPassword);
+        $this->displayPWGenerator($password);
     }
     
     /**
@@ -65,6 +102,14 @@ class BaseController {
         $this->template->assign('activeMenu', null);
         $this->template->assign('errorType', 'Error');
         $this->template->display('exception.tpl');
+    }
+    
+    /**
+     * Displays a site that the user is not authorized to see a ressource or done an action.
+     */
+    public function displayNotAuthorizedException() {
+        $this->template->assign('activeMenu', null);
+        $this->template->display('notAuthorizedException.tpl');
     }
 
     /**

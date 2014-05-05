@@ -12,7 +12,7 @@ class Account {
     private $website;
     private $username;
     private $password;
-    private $userId;
+    private $userid;
     
     /**
      * Constructor. Initialize the title, website, username and password and the id of the account. All params are optional (Must be so for the PDO Object mapping).
@@ -94,7 +94,7 @@ class Account {
      * @return int ID of the user who belongs to the account.
      */
     public function getUserId() {
-        return $this->userId;
+        return $this->userid;
     }
     
     /**
@@ -102,7 +102,7 @@ class Account {
      * @param int $userId ID of the user, who belongs to the account.
      */
     public function setUserId($userId) {
-        $this->userId = $userId;
+        $this->userid = $userId;
     }
 }
 ?>

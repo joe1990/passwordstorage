@@ -41,7 +41,7 @@ Version: 1.0
                     </dd>
                 </dl>
                 <a class="linkbutton" href="index.php?view=accounts">cancel</a>
-                <input type="submit" class="button" name="editAccount" value="save"/>
+                <input type="submit" class="button" name="updateAccount" value="save"/>
                 <input type="hidden" name="id" value="{$account->getId()}">
             </form>
         </div>   

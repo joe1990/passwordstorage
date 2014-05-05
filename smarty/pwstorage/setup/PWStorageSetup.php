@@ -9,9 +9,11 @@ require(PWSTORAGE_DIR . 'persistence/AccountRepository.php');
 require(PWSTORAGE_DIR . 'model/Fault.php');
 require(PWSTORAGE_DIR . 'model/Account.php');
 require(PWSTORAGE_DIR . 'model/User.php');
+require(PWSTORAGE_DIR . 'model/Password.php');
 require(PWSTORAGE_DIR . 'validator/UserValidator.php');
 require(PWSTORAGE_DIR . 'validator/AccountValidator.php');
 require(PWSTORAGE_DIR . 'helper/PasswordEncrypter.php');
+require(PWSTORAGE_DIR . 'exception/NotAuthorizedException.php');
 require(SMARTY_DIR . 'Smarty.class.php');
 
 /**

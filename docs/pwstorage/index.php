@@ -19,7 +19,7 @@ $baseController = new BaseController();
 
 try {
     //Get the current view.
-    $view = isset($_REQUEST['view']) ? $_REQUEST['view'] : 'home';
+    $view = isset($_GET['view']) ? $_GET['view'] : 'home';
 
     //Login-Button was clicked -> login user
     if (isset($_POST['login'])) {
@@ -41,9 +41,17 @@ try {
         $accountController->addAccount($account);
     }
     //Edit-Account-Button was clicked. -> update account
-    elseif (isset($_POST['editAccount'])) {
+    elseif (isset($_POST['updateAccount'])) {
         $account = new Account($_POST['title'], $_POST['website'], $_POST['username'], $_POST['password'], $_POST['id']);
-        $accountController->editAccount($account);
+        $accountController->updateAccount($account);
+    }
+    //Password-Generate Button was clicked. -> generate password
+    elseif (isset($_POST['generatePassword'])) {
+        $hasCharacters = isset($_POST['hasCharacters']) ? true : false;
+        $hasDigits = isset($_POST['hasDigits']) ? true : false;
+        $hasSpecialCharacters = isset($_POST['hasSpecialCharacters']) ? true : false;
+        $password = new Password($_POST['length'], $hasCharacters, $hasDigits, $hasSpecialCharacters);
+        $baseController->generatePassword($password);
     }
     //Logout-Button was clicked. -> logout user
     elseif (isset($_POST['logout'])) {
@@ -71,15 +79,15 @@ try {
                 $accountController->displayAddAccount();
                 break;
             case 'showAccount':
-                $item = isset($_REQUEST['item']) ? $_REQUEST['item'] : '';
+                $item = isset($_GET['item']) ? $_GET['item'] : '';
                 $accountController->displayShowAccount($item);
                 break;
             case 'deleteAccount':
-                $item = isset($_REQUEST['item']) ? $_REQUEST['item'] : '';
+                $item = isset($_GET['item']) ? $_GET['item'] : '';
                 $accountController->deleteAccount($item);
                 break;
             case 'editAccount':
-                $item = isset($_REQUEST['item']) ? $_REQUEST['item'] : '';
+                $item = isset($_GET['item']) ? $_GET['item'] : '';
                 $accountController->displayEditAccount($item);
                 break;
             case 'profile':
@@ -94,7 +102,11 @@ try {
 //PDOException occured -> Database Error will be displayed
 catch (PDOException $pdoE) {
     $baseController->displayPdoException();
-} 
+}
+//NotAuthorizedException occured. User is no authorized to see a ressource or do an action.
+catch (NotAuthorizedException $naE) {
+    $baseController->displayNotAuthorizedException();
+}
 // Other exception occured -> Error will be displayed
 catch (Exception $e) {
     $baseController->displayException();

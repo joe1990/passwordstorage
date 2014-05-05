@@ -44,6 +44,26 @@ class AccountRepository {
         }
         return $result;
     }
+    
+    /**
+     * Get the user-id of a specific account from the database
+     * 
+     * @param int $accountId ID of the account which user-id is determined.
+     * @return int User-ID
+     */
+    public function getAccountUserId($accountId) {
+        $sql = 'SELECT userid
+                        FROM accounts
+                        WHERE id = :id';
+        $statement = DB::getInstance()->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+        $statement->execute(array(':id' => $accountId));
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        $userId = 0;
+        if ($result != null) {
+            $userId = $result->userid;
+        }
+        return $userId;
+    }
 
     /**
      * Add an account to the database.
